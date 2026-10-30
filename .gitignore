@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Backups manuais
+*.bak
+*.bak_*
+
+# Ferramentas / agentes (gerados localmente)
+.omo/
+.codegraph
+graphify-out/
+
+# Caches regeneráveis
+data/tts_cache/
+data/market_cache.json

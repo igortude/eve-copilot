@@ -1,0 +1,68 @@
+{
+  "ollama_host": "http://localhost:11434",
+  "ollama_model": "qwen2.5:7b",
+  "log_dir": "/home/igor/Games/eve-online/drive_c/users/igor/Documents/EVE/logs/Gamelogs",
+  "overlay_opacity": 0.9,
+  "theme": "eve_tactical_hud",
+  "default_ship": "Frigate / Cruiser",
+  "sound_alerts": true,
+  "voice_persona": "aura",
+  "is_locked": false,
+  "pos_x": 0,
+  "pos_y": 0,
+  "font_delta": 0,
+  "windows_state": {
+    "overview": {
+      "detached": false,
+      "visible": true
+    },
+    "tactics": {
+      "detached": false,
+      "visible": true
+    },
+    "ships": {
+      "detached": false,
+      "visible": true
+    },
+    "simulator": {
+      "detached": false,
+      "visible": true
+    },
+    "fw": {
+      "detached": false,
+      "visible": true
+    },
+    "training": {
+      "detached": false,
+      "visible": true
+    },
+    "copilot": {
+      "detached": false,
+      "visible": true
+    },
+    "market": {
+      "detached": false,
+      "visible": true
+    },
+    "loot": {
+      "detached": false,
+      "visible": true
+    },
+    "hacking": {
+      "detached": false,
+      "visible": true
+    },
+    "combat": {
+      "detached": false,
+      "visible": true
+    },
+    "missions": {
+      "detached": false,
+      "visible": true
+    },
+    "advisor": {
+      "detached": false,
+      "visible": true
+    }
+  }
+}

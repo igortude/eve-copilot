@@ -1,0 +1,51 @@
+{
+  "Tormentor": {
+    "ship": "Tormentor",
+    "role": "Scram Kiting",
+    "weapon_type": "Small Energy Turrets",
+    "tank_type": "Active Armor",
+    "propulsion": "Afterburner",
+    "tackle": [
+      "Warp Scrambler",
+      "Stasis Webifier"
+    ],
+    "drones": true,
+    "preferred_engagement_range_m": 4000,
+    "class_hint": "Frigate",
+    "reference_range_window_m": [
+      4000,
+      7000
+    ],
+    "strengths": [
+      "Range Control",
+      "Drone Damage",
+      "Flexible Laser Crystals"
+    ],
+    "weaknesses": [
+      "Capacitor Pressure",
+      "Limited Speed",
+      "Energy Neutralizers"
+    ],
+    "slots": {
+      "low": null,
+      "mid": null,
+      "high": null,
+      "rig": null
+    },
+    "weapon_stats": {
+      "optimal_m": null,
+      "falloff_m": null,
+      "tracking_rad_s": null,
+      "sig_res_m": null,
+      "nominal_dps": null,
+      "speed_ms": null,
+      "signature_m": null,
+      "scram_range_m": null,
+      "cap_gj": null,
+      "cap_recharge_s": null
+    },
+    "ammo": null,
+    "fitting_eft": null,
+    "notes": ""
+  }
+}

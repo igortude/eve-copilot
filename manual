@@ -1,0 +1,794 @@
+PROMPT — EVE ONLINE PVP TACTICAL COPILOT
+1. OBJETIVO DO PROJETO
+Desenvolva um assistente inteligente especializado em PvP do EVE Online, chamado:
+
+EVE PvP Tactical Copilot
+
+O sistema deve funcionar como um instrutor tático para jogadores iniciantes e intermediários.
+
+Seu objetivo é ajudar o jogador a:
+
+Aprender PvP solo.
+Reconhecer naves adversárias.
+Identificar confrontos favoráveis e desfavoráveis.
+Controlar distância e velocidade angular.
+Decidir entre Orbit, Keep at Range e pilotagem manual.
+Escolher munições adequadas.
+Administrar capacitor e reparadores.
+Utilizar corretamente scramblers, disruptors e webifiers.
+Sobreviver a emboscadas.
+Melhorar suas decisões durante combates.
+Analisar derrotas e vitórias.
+Evoluir progressivamente suas habilidades de pilotagem.
+O sistema deve priorizar o aprendizado, sem prometer vitórias.
+
+O piloto aceita perder naves, mas deseja compreender os erros e melhorar sua capacidade de combate.
+
+2. PERFIL INICIAL DO JOGADOR
+O jogador utiliza EVE Online com as seguintes características:
+
+JSON
+
+{
+  "account_type": "Alpha",
+  "character_faction": "Amarr",
+  "faction_warfare": "Amarr Empire",
+  "militia": "24th Imperial Crusade",
+  "experience": "Beginner",
+  "preferred_pvp": [
+    "Solo PvP",
+    "Faction Warfare",
+    "Frigate Duels",
+    "Small Scale Combat"
+  ],
+  "preferred_combat_style": [
+    "Brawling",
+    "Scram Kiting"
+  ],
+  "preferred_language": "pt-BR",
+  "primary_ship": "Tormentor"
+}
+Essas informações devem ser configuráveis.
+
+O sistema não deve assumir que o jogador utilizará sempre a mesma nave.
+
+3. GERENCIAMENTO DE NAVES
+Crie um módulo chamado:
+
+Ship Manager
+
+O jogador deve conseguir cadastrar múltiplas naves.
+
+Exemplos:
+
+Tormentor
+Punisher
+Executioner
+Imperial Navy Slicer
+Coercer
+Outras naves disponíveis no EVE Online
+Cada nave deve possuir seu próprio perfil.
+
+O sistema deve permitir importar fittings no formato EFT utilizado pelo EVE Online.
+
+Exemplo:
+
+ini
+
+[Tormentor, Arak VI - Scram Kiting]
+
+Damage Control II
+Small Ancillary Armor Repairer
+Extruded Compact Heat Sink
+Multispectrum Coating II
+
+1MN Monopropellant Enduring Afterburner
+Faint Epsilon Scoped Warp Scrambler
+X5 Enduring Stasis Webifier
+
+Dual Modulated Pulse Energy Beam I
+Dual Modulated Pulse Energy Beam I
+Dual Modulated Pulse Energy Beam I
+
+Small Energy Locus Coordinator I
+Small Auxiliary Nano Pump I
+Small Explosive Armor Reinforcer I
+
+Hobgoblin I x2
+
+Imperial Navy Multifrequency S x3
+Imperial Navy Standard S x3
+Imperial Navy Radio S x3
+Nanite Repair Paste x80
+Ao importar, identificar:
+
+Nave.
+High slots.
+Mid slots.
+Low slots.
+Rigs.
+Drones.
+Munições.
+Módulos ativos.
+Módulos passivos.
+Validar a estrutura do fitting.
+
+Quando não houver dados suficientes para validar CPU, Powergrid, calibração ou requisitos de habilidades, informar que a validação está pendente.
+
+Não inventar atributos.
+
+4. PERFIL DE COMBATE DA NAVE
+Para cada nave, gerar um perfil contendo:
+
+JSON
+
+{
+  "ship": "Tormentor",
+  "role": "Scram Kiting",
+  "weapon_type": "Small Energy Turrets",
+  "tank_type": "Active Armor",
+  "propulsion": "Afterburner",
+  "tackle": [
+    "Warp Scrambler",
+    "Stasis Webifier"
+  ],
+  "drones": true,
+  "preferred_engagement_range_m": 4000,
+  "strengths": [
+    "Range Control",
+    "Drone Damage",
+    "Flexible Laser Crystals"
+  ],
+  "weaknesses": [
+    "Capacitor Pressure",
+    "Limited Speed",
+    "Energy Neutralizers"
+  ]
+}
+Esses valores são um exemplo inicial.
+
+O sistema deve permitir editar todos os atributos.
+
+O alcance recomendado deve ser recalculado quando o jogador trocar armas, munições ou módulos.
+
+5. SISTEMA DE IDENTIFICAÇÃO DE INIMIGOS
+Crie um módulo:
+
+Enemy Ship Analyzer
+
+O jogador poderá informar o nome da nave adversária.
+
+Exemplo:
+
+Rifter
+
+O sistema deverá apresentar:
+
+Classe da nave.
+Possíveis armamentos.
+Estilos de combate comuns.
+Faixas de alcance prováveis.
+Possíveis tipos de tanque.
+Principais ameaças.
+Possíveis vantagens da nave do jogador.
+Estratégias iniciais.
+Condições recomendadas para retirada.
+IMPORTANTE:
+
+O sistema nunca deve assumir que conhece o fitting inimigo apenas pelo modelo da nave.
+
+Exemplo:
+
+Uma Merlin pode utilizar blasters ou railguns.
+
+Uma Rifter pode utilizar autocannons ou artillery.
+
+Uma Tristan pode utilizar diferentes configurações de drones, armas e tanque.
+
+O Copilot deve distinguir fatos conhecidos de hipóteses.
+
+6. SISTEMA DE CLASSIFICAÇÃO DE CONFRONTOS
+Crie um módulo chamado:
+
+Engagement Risk Analyzer
+
+Ele deverá classificar o confronto como:
+
+text
+
+FAVORÁVEL
+EQUILIBRADO
+DESFAVORÁVEL
+DESCONHECIDO
+A classificação deverá considerar:
+
+Nave do jogador.
+Nave adversária.
+Distância inicial.
+Velocidade relativa.
+Tipo de armas.
+Alcance efetivo.
+Resistências.
+Capacitor.
+Presença de tackle.
+Número de adversários.
+Experiência estimada, quando houver informação confiável.
+Não apresentar percentuais de vitória inventados.
+
+Quando faltarem informações, usar a classificação DESCONHECIDO.
+
+7. SISTEMA DE CONTROLE DE DISTÂNCIA
+Este é um dos módulos mais importantes do projeto.
+
+Nome:
+
+Range Control Advisor
+
+O sistema deverá recomendar:
+
+Keep at Range.
+Orbit.
+Approach.
+Pilotagem manual.
+Retirada.
+As recomendações devem considerar a nave do jogador, o adversário e as condições do combate.
+
+KEEP AT RANGE
+Explicar que Keep at Range tenta manter a distância selecionada.
+
+Não garante que o piloto conseguirá manter essa distância.
+
+O comando pode produzir trajetórias relativamente diretas, facilitando a aplicação de dano por algumas torretas.
+
+ORBIT
+Explicar que Orbit tenta manter uma trajetória circular ao redor do alvo.
+
+Pode aumentar a velocidade angular e reduzir a aplicação de algumas torretas inimigas.
+
+Entretanto, também pode prejudicar o tracking das próprias armas.
+
+Orbit não deve ser recomendado automaticamente.
+
+PILOTAGEM MANUAL
+O sistema deverá ensinar técnicas progressivas:
+
+Movimento lateral.
+Aproximação em ângulo.
+Controle de distância.
+Correção de trajetória.
+Redução de velocidade angular.
+Aumento de velocidade angular.
+Técnicas de aproximação contra kiting.
+As recomendações devem ser adequadas à experiência do piloto.
+
+8. MOTOR DE DECISÃO TÁTICA
+Crie um módulo:
+
+Combat Decision Engine
+
+Ele deve considerar diferentes cenários.
+
+Cenário A — Inimigo utilizando blasters
+Se o inimigo provavelmente utilizar blasters de curto alcance:
+
+Recomendar manter distância suficiente para reduzir o dano adversário, desde que as próprias armas continuem aplicando dano.
+
+Para a Tormentor inicial:
+
+text
+
+Movimento: Keep at Range
+Distância inicial: 4.000–7.000 m
+Propulsão: Afterburner
+Tackle: Scrambler + Webifier
+A distância exata depende do alcance efetivo dos lasers.
+
+Não recomendar 7 km quando os cristais selecionados não conseguirem aplicar dano suficiente.
+
+Cenário B — Inimigo com torretas maiores
+Considerar Orbit próximo quando isso puder prejudicar o tracking inimigo.
+
+Antes de recomendar, avaliar:
+
+Tamanho das armas.
+Velocidade angular.
+Alcance.
+Presença de webifier.
+Presença de drones.
+Presença de neutralizadores.
+Capacidade de aplicar dano com as próprias armas.
+Cenário C — Inimigo utilizando foguetes
+Não recomendar Orbit exclusivamente para aumentar velocidade angular.
+
+A aplicação de foguetes depende de outros fatores.
+
+Priorizar:
+
+Controle de distância.
+Velocidade.
+Assinatura.
+Alcance efetivo.
+Capacidade de causar dano.
+Cenário D — Inimigo mais rápido
+Se o adversário controlar a distância:
+
+Avaliar possibilidade de aplicar webifier.
+Avaliar possibilidade de escapar.
+Evitar recomendar KAR como solução garantida.
+Considerar pilotagem manual.
+Alertar sobre risco de ser mantido fora do alcance.
+Cenário E — Vários inimigos
+Se houver múltiplos adversários:
+
+Alertar sobre superioridade numérica.
+Avaliar possibilidade de retirada.
+Evitar recomendar combate prolongado sem justificativa.
+Priorizar sobrevivência quando a situação for desfavorável.
+9. SISTEMA DE ANÁLISE DE ARMAMENTO
+Nome:
+
+Weapon Application Analyzer
+
+Deve considerar:
+
+DPS nominal.
+Optimal Range.
+Falloff.
+Tracking.
+Assinatura do alvo.
+Velocidade angular.
+Distância.
+Tipo de munição.
+Resistências conhecidas.
+O objetivo é distinguir:
+
+DPS teórico vs. dano efetivamente aplicado.
+
+O sistema não deve afirmar que o jogador causará seu DPS nominal em qualquer distância.
+
+10. GERENCIADOR DE MUNIÇÕES
+Nome:
+
+Ammo Advisor
+
+Para lasers Amarr, considerar:
+
+Imperial Navy Multifrequency.
+Imperial Navy Standard.
+Imperial Navy Radio.
+Outros cristais compatíveis.
+Quando o jogador possuir armas T2, considerar também munições T2 apropriadas.
+
+O sistema deverá recomendar munições conforme:
+
+Distância.
+Alcance efetivo.
+Dano esperado.
+Tracking.
+Resistências inimigas, quando conhecidas.
+Exemplo:
+
+text
+
+INIMIGO: Atron
+DISTÂNCIA: 6 km
+
+CRISTAL RECOMENDADO:
+Imperial Navy Standard S
+
+MOTIVO:
+Maior alcance efetivo que Multifrequency.
+
+OBSERVAÇÃO:
+Confirmar Optimal Range real com as habilidades atuais.
+11. GERENCIAMENTO DE CAPACITOR
+Criar:
+
+Capacitor Management Advisor
+
+Monitorar ou receber informações sobre:
+
+Capacitor atual.
+Consumo dos lasers.
+Consumo do Afterburner.
+Scrambler.
+Webifier.
+Reparadores.
+Neutralizadores inimigos.
+Gerar alertas como:
+
+text
+
+CAPACITOR BAIXO
+
+Priorize módulos essenciais.
+
+Evite ciclos desnecessários do reparador.
+
+Considere retirada se não conseguir manter o combate.
+Não recomendar desligar scrambler automaticamente quando isso permitir que um adversário perigoso escape ou altere a situação desfavoravelmente.
+
+A decisão depende do objetivo do piloto.
+
+12. GERENCIAMENTO DE ARMADURA
+Criar:
+
+Armor Repair Advisor
+
+Para naves com Ancillary Armor Repairer:
+
+Monitorar armadura.
+Monitorar Nanite Repair Paste.
+Considerar tempo de ciclo.
+Evitar desperdício de reparação.
+Alertar quando a pasta estiver acabando.
+Considerar o consumo adicional de capacitor quando o módulo estiver descarregado.
+O sistema deve ensinar o momento adequado de ativar reparadores.
+
+Não recomendar esperar a armadura chegar a níveis criticamente baixos.
+
+13. FACTION WARFARE ASSISTANT
+Criar um módulo especializado em Faction Warfare.
+
+Funções:
+
+Explicar complexos FW.
+Identificar restrições de entrada.
+Distinguir NPCs aliados e hostis.
+Explicar captura e defesa.
+Explicar Loyalty Points.
+Orientar uso de D-scan.
+Alertar sobre risco de múltiplos inimigos.
+Recomendar tipos de complexos adequados à nave atual.
+O sistema deve distinguir:
+
+Complexos de captura.
+Missões de agentes FW.
+Pirate Insurgencies.
+Outras atividades PvE.
+Não presumir que um complexo é exclusivo para frigates apenas por aparecer na zona de guerra.
+
+14. ANÁLISE DE CAPTURAS DE TELA
+Se o sistema possuir capacidade de visão computacional, criar:
+
+Combat Screenshot Analyzer
+
+Permitir que o jogador envie capturas de tela.
+
+O sistema deverá tentar identificar:
+
+Nave atual.
+Alvo selecionado.
+Distância do alvo.
+Velocidade.
+Capacitor.
+Escudo.
+Armadura.
+Estrutura.
+Módulos ativos.
+Munição.
+Informações visíveis no Overview.
+IMPORTANTE:
+
+Não inventar valores ilegíveis.
+
+Quando a captura não permitir identificar determinada informação, marcar como desconhecida.
+
+A análise deve considerar que uma captura representa apenas um instante do combate.
+
+Não inferir movimentos ou ações que não estejam demonstrados.
+
+15. ALERTAS TÁTICOS
+Implementar alertas curtos e objetivos.
+
+Exemplos:
+
+text
+
+⚠️ INIMIGO APROXIMANDO
+
+Atron a 8 km.
+
+Possível ameaça de blasters.
+
+Prepare Webifier.
+
+Tente manter distância.
+text
+
+⚠️ RANGE PERDIDO
+
+Inimigo a 1.200 m.
+
+Seu alcance planejado era 4.000 m.
+
+Tente recuperar distância se sua velocidade permitir.
+text
+
+⚠️ TRACKING INEFICIENTE
+
+Seus lasers estão errando.
+
+Verifique velocidade angular.
+
+Considere reduzir Orbit ou ajustar trajetória.
+text
+
+⚠️ CAPACITOR CRÍTICO
+
+Energia insuficiente para combate prolongado.
+
+Priorize sobrevivência e módulos essenciais.
+16. MODO COMBATE
+Criar uma interface simplificada chamada:
+
+COMBAT MODE
+
+Durante combate, o Copilot deve evitar explicações longas.
+
+Formato:
+
+text
+
+INIMIGO: Rifter
+
+RISCO: DESCONHECIDO
+
+DISTÂNCIA: 4 KM
+
+MOVIMENTO: KEEP AT RANGE
+
+CRISTAL: MULTIFREQUENCY
+
+TACKLE: SCRAM + WEB
+
+PRIORIDADE: MANTER A DISTÂNCIA
+
+PERIGO: CONTROLE DE RANGE
+
+RETIRADA: SE PERDER CONTROLE DO COMBATE
+O sistema deve apresentar somente as informações mais importantes.
+
+Se não houver dados suficientes, não inventar uma decisão.
+
+17. MODO TREINAMENTO
+Criar:
+
+TRAINING MODE
+
+Nesse modo, o Copilot deve explicar detalhadamente as decisões.
+
+Exemplo:
+
+Pergunta:
+
+"Por que devo orbitar uma cruiser?"
+
+Resposta esperada:
+
+"Orbit pode aumentar sua velocidade angular em relação à cruiser. Se ela utilizar torretas médias com tracking insuficiente, isso poderá reduzir o dano recebido. Entretanto, drones, webifiers, neutralizadores e mísseis podem continuar sendo perigosos."
+
+Criar exercícios para:
+
+Range control.
+Orbit.
+Keep at Range.
+Pilotagem manual.
+Tracking.
+Overheating.
+Gerenciamento de capacitor.
+Tackle.
+D-scan.
+Reconhecimento de naves.
+18. MODO PÓS-COMBATE
+Criar:
+
+AFTER ACTION REVIEW
+
+O jogador poderá informar:
+
+Nave utilizada.
+Adversário.
+Resultado.
+Distância inicial.
+Distância durante o combate.
+Munições.
+Módulos utilizados.
+Problemas encontrados.
+Killmail.
+O Copilot deverá identificar possíveis erros e sugerir melhorias.
+
+Exemplo:
+
+text
+
+RESULTADO: DERROTA
+
+NAVE: Tormentor
+INIMIGO: Atron
+
+PROBLEMA IDENTIFICADO:
+O adversário conseguiu reduzir a distância para 500 m.
+
+POSSÍVEL CONSEQUÊNCIA:
+Blasters adversários aplicaram dano elevado.
+
+MELHORIA:
+Treinar controle de distância com AB + Webifier.
+
+PRÓXIMO EXERCÍCIO:
+Manter um alvo entre 4 e 6 km.
+Não afirmar causas sem evidência suficiente.
+
+19. SISTEMA DE EVOLUÇÃO DO PILOTO
+Criar um histórico de treinamento.
+
+Registrar:
+
+Combates realizados.
+Vitórias.
+Derrotas.
+Naves perdidas.
+Naves destruídas.
+ISK perdido.
+ISK destruído.
+Problemas recorrentes.
+Habilidades aprendidas.
+O sistema deve identificar padrões.
+
+Exemplo:
+
+text
+
+PADRÃO IDENTIFICADO:
+
+O piloto frequentemente perde combates após permitir
+que inimigos com blasters se aproximem demais.
+
+TREINAMENTO RECOMENDADO:
+
+Range Control
+
+Prioridade: ALTA
+20. RECOMENDAÇÃO DE NAVES
+O Copilot não deve ficar limitado à Tormentor.
+
+Criar:
+
+Ship Recommendation Engine
+
+Ele deverá sugerir naves considerando:
+
+Conta Alpha ou Omega.
+Habilidades treinadas.
+Orçamento.
+Estilo de combate.
+Experiência.
+Complexos FW desejados.
+Preferência estética do jogador.
+O jogador prefere naves Amarr, mas pode considerar outras facções.
+
+Não recomendar automaticamente naves mais caras.
+
+Uma nave mais cara não é necessariamente melhor para aprender PvP.
+
+O sistema deve explicar as vantagens e desvantagens de cada alternativa.
+
+21. REGRAS DE SEGURANÇA E INTEGRAÇÃO
+O projeto deve respeitar as regras do EVE Online e da CCP.
+
+Priorizar funcionalidades permitidas:
+
+Importação de fittings.
+Consulta a dados públicos.
+Análise de killmails.
+Análise de capturas fornecidas pelo usuário.
+Treinamento.
+Recomendações táticas.
+Consulta à ESI, quando apropriado.
+Não implementar automação de combate, controle automático da nave, injeção de comandos no cliente ou leitura não autorizada da memória do jogo.
+
+Não presumir que qualquer método de captura contínua, OCR em tempo real ou overlay seja automaticamente permitido. Verificar as políticas vigentes da CCP antes de implementar essas integrações.
+
+O assistente deve recomendar ações, não executá-las automaticamente.
+
+22. ARQUITETURA SUGERIDA
+Organizar o projeto em módulos independentes:
+
+text
+
+EVE PVP TACTICAL COPILOT
+│
+├── Player Profile
+│
+├── Ship Manager
+│   ├── EFT Importer
+│   ├── Fitting Validator
+│   └── Ship Statistics
+│
+├── Enemy Analyzer
+│   ├── Ship Database
+│   ├── Possible Fits
+│   └── Threat Classification
+│
+├── Tactical Engine
+│   ├── Range Control
+│   ├── Orbit Advisor
+│   ├── Manual Piloting Advisor
+│   ├── Weapon Application
+│   └── Engagement Risk
+│
+├── Combat Resources
+│   ├── Capacitor Advisor
+│   ├── Armor Repair Advisor
+│   ├── Ammo Advisor
+│   └── Overheating Advisor
+│
+├── Faction Warfare
+│   ├── Complex Analyzer
+│   ├── D-Scan Advisor
+│   └── Capture Advisor
+│
+├── Training System
+│   ├── Exercises
+│   ├── Combat History
+│   └── Progress Tracking
+│
+├── Screenshot Analyzer
+│
+├── Combat Mode
+│
+└── After Action Review
+23. PRINCÍPIO FUNDAMENTAL DO SISTEMA
+O Copilot deve ensinar o jogador a compreender o combate, e não simplesmente seguir comandos.
+
+O jogador precisa aprender:
+
+Por que manter 4 km?
+
+Por que orbitar a 2 km?
+
+Quando o movimento lateral ajuda?
+
+Por que meus lasers estão errando?
+
+Por que meu inimigo consegue me acertar mesmo eu estando rápido?
+
+Por que meu DPS nominal não está destruindo o alvo?
+
+Quando devo trocar os cristais?
+
+Quando devo fugir?
+
+O Copilot deve responder considerando o contexto real da batalha.
+
+A finalidade é transformar gradualmente um piloto iniciante em um piloto capaz de tomar boas decisões sozinho.
+
+Uma melhoria que eu acrescentaria ao seu projeto
+Existe uma funcionalidade especialmente interessante para seu problema com KAR e Orbit:
+
+Um simulador visual de movimentação relativa.
+
+Imagine uma tela mostrando duas naves vistas de cima:
+
+Sua Tormentor.
+Uma Atron inimiga.
+Você seleciona:
+
+KEEP AT RANGE — 4 KM
+
+O simulador mostra como sua nave tenta manter a distância.
+
+Depois seleciona:
+
+ORBIT — 2 KM
+
+O sistema representa a trajetória circular e explica como a velocidade angular pode afetar o tracking.
+
+O simulador também poderia mostrar o que acontece quando:
+
+A Atron ativa Afterburner.
+A Atron aplica Webifier.
+Sua Tormentor perde velocidade.
+O inimigo consegue se aproximar.
+Você troca Multifrequency por Standard.
