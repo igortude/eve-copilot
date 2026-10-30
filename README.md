@@ -14,6 +14,20 @@ Overlay tático (*always-on-top*) em **PyQt6** para **EVE Online** no Linux (Lut
 
 ---
 
+## 📸 Screenshots
+
+![Painel Tactics & Combat e Simulador tático](docs/hero.png)
+
+*Painel **Tactics & Combat** (análise de alvo, manobra e munição recomendadas) e **Simulador tático** de movimentação relativa.*
+
+![Ship Manager com fitting EFT importado](docs/ship-manager.png)
+
+*Ship Manager com um fitting EFT importado e validado.*
+
+> As imagens são uma **montagem ilustrativa**: o HUD é o do app real, rodando com dados de exemplo, sobre um fundo espacial gerado por código (não é uma captura de tela do jogo nem usa arte da CCP).
+
+---
+
 ## ✨ Recursos
 
 O app tem 13 painéis (abas), que podem ser destacados em janelas independentes e têm posição e visibilidade salvas em `config.json`.
