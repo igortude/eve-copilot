@@ -1,5 +1,9 @@
 # ◈ EVE Tactical Copilot
 
+TÁ COMEÇANDO NO EVE E PRECISA DE UMA AJUDA?
+ESTA É A SOLUÇÃO!! JOGUEI POR MUITOS ANOS, E AO VOLTAR A JOGAR, JÁ NÃO LEMBRAVA UM MONTE DE COISAS... 
+ESSE COPILOT ME AJUDOU MUITO!!!
+
 Overlay tático (*always-on-top*) em **PyQt6** para **EVE Online** no Linux (Lutris/Wine), com voz de bordo em PT-BR, análise de combate, gerenciador de naves, assistente de Faction Warfare, cotador de mercado e treino de PvP. Funciona de forma **offline-first**: a IA é local (Ollama) e a internet só é usada em consultas públicas (ESI/zKillboard) e na síntese de voz.
 
 > ⚠️ **Status: arquivado.** Parei de jogar EVE, então o projeto não tem mais manutenção ativa. O código está completo e funcional (41 testes passando), e fica aqui como referência ou ponto de partida. Fique à vontade para fazer fork.
