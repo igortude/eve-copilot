@@ -4,6 +4,8 @@ Overlay tático (*always-on-top*) em **PyQt6** para **EVE Online** no Linux (Lut
 
 > ⚠️ **Status: arquivado.** Parei de jogar EVE, então o projeto não tem mais manutenção ativa. O código está completo e funcional (41 testes passando), e fica aqui como referência ou ponto de partida. Fique à vontade para fazer fork.
 
+> 🖥️ **Importante: rode o EVE em modo janela.** O overlay só aparece sobre o jogo se o EVE estiver em **Window Mode** (*Janela*) ou **Fixed Window** (*Janela fixa*). Em **tela cheia (Fullscreen)** o cliente toma o controle da tela e o HUD fica escondido atrás dele. Configure em *Esc → Configurações → Tela → Modo de janela* (*Display & Graphics*).
+
 > **Aviso:** projeto de fã, não afiliado à CCP Games. *EVE Online* é marca registrada da CCP hf. O Copilot **recomenda**, nunca executa ações no jogo. Veja [Segurança e política da CCP](#-segurança-e-política-da-ccp).
 
 ---
@@ -52,6 +54,7 @@ Os requisitos estão em [`manual`](manual) (o prompt-especificação original). 
 ### Requisitos
 
 - Linux (testado em KDE/Wayland, com EVE via Lutris/Wine)
+- EVE Online em **Window Mode** ou **Fixed Window**, nunca em Fullscreen (veja o aviso no topo)
 - Python 3.10+ (desenvolvido em 3.14)
 - Opcionais:
   - [**Ollama**](https://ollama.com) para Missions, Advisor e análise de screenshot
@@ -90,13 +93,13 @@ O `run.sh` inicia o `ollama serve` caso ele ainda não esteja rodando.
 | `overlay_opacity`, `font_delta`, `is_locked`, `pos_x`, `pos_y` | Aparência e posição do overlay. |
 | `windows_state` | Estado de cada painel (destacado/visível). Gerenciado pelo app. |
 
-Perfil do piloto, naves e histórico de treino são salvos em `data/` (JSON).
+Perfil do piloto (`player_profile.json`), naves (`ships.json`) e histórico de treino (`pilot_history.json`) são salvos em `data/`. O `ships.json` do repositório é só um exemplo; os outros dois são criados ao usar o app e ficam fora do git.
 
 ---
 
 ## 🕹️ Uso rápido
 
-1. Abra o EVE e o Copilot (o HUD flutua sobre o jogo; arraste pela barra superior).
+1. Abra o EVE em **Window Mode** ou **Fixed Window** e depois o Copilot (o HUD flutua sobre o jogo; arraste pela barra superior). Se o HUD sumir, confira se o jogo não voltou para tela cheia.
 2. **Scanner de alvo:** clique numa nave na Overview e pressione `Ctrl+C`. O Copilot lê a área de transferência (polling contínuo, funciona em Wayland) e fala a recomendação.
 3. **Fittings:** no EVE, copie o fitting como EFT e cole no *Ship Manager* ou no *Market & Fit*.
 4. **D-Scan:** copie o resultado do D-Scan e cole no painel *FW & D-Scan*.
