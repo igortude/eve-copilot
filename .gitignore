@@ -17,3 +17,7 @@ graphify-out/
 # Caches regeneráveis
 data/tts_cache/
 data/market_cache.json
+
+# Dados pessoais gerados em uso
+data/player_profile.json
+data/pilot_history.json
